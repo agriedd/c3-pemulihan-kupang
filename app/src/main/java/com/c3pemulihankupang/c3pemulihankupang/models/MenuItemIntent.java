@@ -11,6 +11,15 @@ public class MenuItemIntent extends MenuItem {
         this.intent = intent;
     }
 
+    /**
+     *
+     * @param id
+     * @param title
+     * @param subtitle
+     * @param drawable_image
+     * @param intent
+     *
+     */
     public MenuItemIntent(int id, String title, String subtitle, int drawable_image, Intent intent) {
         super(id, title, subtitle, drawable_image);
         this.intent = intent;

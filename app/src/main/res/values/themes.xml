@@ -22,4 +22,7 @@
     <style name="Theme.C3PemulihanKupang.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark" />
 
     <style name="Theme.C3PemulihanKupang.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.C3PemulihanKupang.CardMenuOverlay">
+        <item name="android:background">#6148</item>
+    </style>
 </resources>

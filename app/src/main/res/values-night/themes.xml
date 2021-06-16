@@ -13,4 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="Theme.C3PemulihanKupang.CardMenuOverlay">
+        <item name="android:background">#9148</item>
+    </style>
 </resources>

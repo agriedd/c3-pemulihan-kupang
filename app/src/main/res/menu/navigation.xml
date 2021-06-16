@@ -6,19 +6,19 @@
         android:icon="@drawable/ic_dashboard_selector"
         android:title="@string/menu_home"/>
     <item
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_new"
         android:icon="@drawable/ic_new_selector"
-        android:title="New" />
+        android:title="@string/menu_new" />
     <item
         android:id="@+id/nav_slideshow"
         android:icon="@drawable/ic_baseline_wifi_tethering_24"
-        android:title="Podcast"/>
+        android:title="@string/menu_podcast"/>
     <item
         android:id="@+id/nav_event"
         android:icon="@drawable/ic_event_selector"
-        android:title="Event"/>
+        android:title="@string/menu_event"/>
     <item
         android:id="@+id/nav_giving"
         android:icon="@drawable/ic_baseline_connect_without_contact_24"
-        android:title="Giving"/>
+        android:title="@string/menu_giving"/>
 </menu>

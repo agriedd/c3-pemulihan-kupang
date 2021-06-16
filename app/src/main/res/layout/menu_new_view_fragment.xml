@@ -2,10 +2,10 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tim_kami"
+    android:id="@+id/menu_new_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.timkami.TimKamiFragment">
+    tools:context=".ui.menu_new.view_info.MenuNewViewFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:title="Tim Kami"
+            app:title="New"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             app:popupTheme="@style/Theme.C3PemulihanKupang.PopupOverlay" />
 
@@ -26,15 +26,15 @@
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        android:id="@+id/webview"/>
+        android:id="@+id/webview"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
-    <ProgressBar
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/loading"
-        android:layout_gravity="center"
-        android:indeterminate="true"/>
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:indeterminate="true"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

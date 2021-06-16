@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.c3pemulihankupang.c3pemulihankupang.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_new"
+        android:name="com.c3pemulihankupang.c3pemulihankupang.ui.menu_new.MenuNewFragment"
+        android:label="@string/menu_new"
+        tools:layout="@layout/menu_new_fragment" />
 
     <fragment
         android:id="@+id/nav_slideshow"

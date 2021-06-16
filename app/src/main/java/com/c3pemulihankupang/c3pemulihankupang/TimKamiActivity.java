@@ -19,8 +19,8 @@ public class TimKamiActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
+//    @Override
+//    public void onBackPressed() {
 //        switch (keyCode) {
 //            case KeyEvent.KEYCODE_BACK:
 //                if (mWebView.canGoBack()) {
@@ -30,5 +30,5 @@ public class TimKamiActivity extends AppCompatActivity {
 //                }
 //                return true;
 //        }
-    }
+//    }
 }

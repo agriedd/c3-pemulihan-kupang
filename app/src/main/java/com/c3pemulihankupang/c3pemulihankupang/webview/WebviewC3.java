@@ -33,9 +33,21 @@ public class WebviewC3 extends WebViewClient {
         super.onPageStarted(view, url, favicon);
         listener.onStart();
         view.loadUrl("javascript:(document.onload = function(){" +
-                "document.querySelector('.navbar').parentNode.removeChild(document.querySelector('.navbar'))" +
+                "let a = document.querySelectorAll('.col-md-12');" +
+                "if(a.length)" +
+                "for(let i = 0; i < a.length; i++)" +
+                "a[i].style.marginTop = 0;" +
+                "document.querySelector('.navbar').parentNode.removeChild(document.querySelector('.navbar'));" +
+//                    "document.querySelectorAll('.col-md-12').forEach(function(e){ e.style.marginTop = 0) })" +
+//                    "document.querySelector('.col-md-12:nth-child(1)').parentNode.removeChild(document.querySelector('.col-md-12:nth-child(1)'));" +
+//                    "document.querySelector('.col-md-12:nth-child(1)').parentNode.removeChild(document.querySelector('.col-md-12:nth-child(1)'));" +
 //                    "(elem2 = document.getElementById('id2')); elem2.parentNode.removeChild(elem2); " +
-                "})()");
+                "}" +
+//                "document.addEventListener('DOMContentLoaded', function(event) {" +
+//                    "document.querySelector('.navbar').parentNode.removeChild(document.querySelector('.navbar'));" +
+//                    "document.querySelectorAll('.col-md-12').forEach(e => e.style.marginTop = '0px!important');" +
+//                "});" +
+                ")()");
     }
 
     @Override
@@ -43,9 +55,20 @@ public class WebviewC3 extends WebViewClient {
         super.onPageFinished(view, url);
         listener.onComplete();
         view.loadUrl("javascript:(document.onload = function(){" +
-                "document.querySelector('.navbar').parentNode.removeChild(document.querySelector('.navbar'))" +
+                "let a = document.querySelectorAll('.col-md-12');" +
+                "if(a.length)" +
+                "for(let i = 0; i < a.length; i++)" +
+                "a[i].style.marginTop = 0;" +
+                "document.querySelector('.navbar').parentNode.removeChild(document.querySelector('.navbar'));" +
+//                    "document.querySelectorAll('.col-md-12').forEach(function(e){ e.style.marginTop = 0) })" +
+//                    "document.querySelector('.col-md-12:nth-child(1)').parentNode.removeChild(document.querySelector('.col-md-12:nth-child(1)'));" +
+//                    "document.querySelector('.col-md-12:nth-child(1)').parentNode.removeChild(document.querySelector('.col-md-12:nth-child(1)'));" +
 //                    "(elem2 = document.getElementById('id2')); elem2.parentNode.removeChild(elem2); " +
-                "})()");
+                "}" +
+//                "document.addEventListener('DOMContentLoaded', function(event) {" +
+//
+//                "});" +
+                ")()");
     }
 
     //    @Override
