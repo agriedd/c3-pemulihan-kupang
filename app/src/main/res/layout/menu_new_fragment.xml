@@ -19,21 +19,18 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/materialTextView"
-                style="@style/TextAppearance.MaterialComponents.Headline4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="17sp"
                 android:text="'Hi, Aku baru di sini...'"
-                android:textStyle="bold"
                 tools:layout_editor_absoluteX="40dp"
-                android:textColor="@color/black_900"/>
+                style="@style/Theme.C3PemulihanKupang.Heading.Title"/>
             <com.google.android.material.textview.MaterialTextView
-                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black_800"
                 android:text="Jika Anda bergabung dengan kami untuk pertama kalinya, selamat datang!"
-                tools:layout_editor_absoluteX="40dp" />
+                tools:layout_editor_absoluteX="40dp"
+                style="@style/Theme.C3PemulihanKupang.Heading.Subtitle"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.recyclerview.widget.RecyclerView

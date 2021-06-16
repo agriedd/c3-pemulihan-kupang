@@ -25,4 +25,11 @@
     <style name="Theme.C3PemulihanKupang.CardMenuOverlay">
         <item name="android:background">#6148</item>
     </style>
+    <style name="Theme.C3PemulihanKupang.Heading.Title" parent="@style/TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">@color/black_900</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Theme.C3PemulihanKupang.Heading.Subtitle" parent="@style/TextAppearance.AppCompat.Subhead">
+        <item name="android:textColor">@color/black_800</item>
+    </style>
 </resources>
