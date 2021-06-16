@@ -1,5 +1,7 @@
 package com.c3pemulihankupang.c3pemulihankupang.ui.home;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +16,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.c3pemulihankupang.c3pemulihankupang.MainActivity;
 import com.c3pemulihankupang.c3pemulihankupang.R;
+import com.c3pemulihankupang.c3pemulihankupang.TimKamiActivity;
 import com.c3pemulihankupang.c3pemulihankupang.adapters.MenuHomeAdapter;
 import com.c3pemulihankupang.c3pemulihankupang.databinding.FragmentHomeBinding;
 import com.c3pemulihankupang.c3pemulihankupang.models.MenuItem;
+import com.c3pemulihankupang.c3pemulihankupang.models.MenuItemIntent;
+import com.c3pemulihankupang.c3pemulihankupang.models.MenuItemLink;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,13 +46,10 @@ public class HomeFragment extends Fragment {
 
     private void bindRecyclerMenu() {
 
-        menuItemList.add(new MenuItem( 1, "Hello", "Hello World", "" ));
-        menuItemList.add(new MenuItem( 1, "Hello", "Hello World", "" ));
-        menuItemList.add(new MenuItem( 1, "Hello", "Hello World", "" ));
-        menuItemList.add(new MenuItem( 1, "Hello", "Hello World", "" ));
-        menuItemList.add(new MenuItem( 1, "Hello", "Hello World", "" ));
-        menuItemList.add(new MenuItem( 1, "Hello", "Hello World", "" ));
-        menuItemList.add(new MenuItem( 1, "Hello", "Hello World", "" ));
+        menuItemList.add(new MenuItemLink( 1, "Banner", "Informasi", R.drawable.klk , "http://c3pemulihankupang.com"));
+        menuItemList.add(new MenuItemIntent( 2, "Tim Kami", "Informasi Tim Kami", R.drawable.team, new Intent(requireContext(), TimKamiActivity.class)));
+        menuItemList.add(new MenuItemIntent( 3, "Live Streaming", "Informasi Live Streaming", R.drawable.livestreaming, null ));
+        menuItemList.add(new MenuItemIntent( 4, "Mengenai Kami", "Siapa Kami & Apa Yang Kami Lakukan", "", null));
 
         binding.menuView.setLayoutManager(
                 new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -61,7 +64,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void onMenuClick(View view, MenuItem menuItem) {
-
+        if(menuItem instanceof MenuItemLink){
+            MenuItemLink menuItemLink = (MenuItemLink) menuItem;
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(menuItemLink.getUrl()));
+            startActivity(intent);
+        } else if(menuItem instanceof MenuItemIntent){
+            MenuItemIntent menuItemIntent = (MenuItemIntent) menuItem;
+            startActivity(menuItemIntent.getIntent());
+        }
     }
 
     @Override

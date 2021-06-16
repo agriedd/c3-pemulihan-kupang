@@ -11,6 +11,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -36,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
         MaterialToolbar toolbar = binding.appBarMain.toolbar;
         setSupportActionBar(toolbar);
         DrawerLayout drawer = binding.drawerLayout;
-        toolbar.setNavigationOnClickListener(v ->
-                drawer.openDrawer(GravityCompat.START, true)
-        );
-        drawer.setScrimColor(getResources().getColor(R.color.transparent));
+//        toolbar.setNavigationOnClickListener(v ->
+//                drawer.openDrawer(GravityCompat.START, true)
+//        );
+//        drawer.setScrimColor(getResources().getColor(R.color.transparent));
         drawer.setDrawerElevation(200f);
         CoordinatorLayout container = binding.appBarMain.container;
         drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {

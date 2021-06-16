@@ -6,10 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.c3pemulihankupang.c3pemulihankupang.R;
+import com.c3pemulihankupang.c3pemulihankupang.databinding.ComponentMenuHomeBinding;
 import com.c3pemulihankupang.c3pemulihankupang.models.MenuItem;
+import com.c3pemulihankupang.c3pemulihankupang.models.MenuItemLink;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,13 +39,13 @@ public class MenuHomeAdapter extends RecyclerView.Adapter<MenuHomeAdapter.viewHo
     @NotNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.component_menu_home, parent, false);
+        ComponentMenuHomeBinding view = ComponentMenuHomeBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new viewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
-
+        holder.bind(context, menuItemList.get(position), listener);
     }
 
     @Override
@@ -50,8 +54,22 @@ public class MenuHomeAdapter extends RecyclerView.Adapter<MenuHomeAdapter.viewHo
     }
 
     public static class viewHolder extends RecyclerView.ViewHolder{
-        public viewHolder(@NonNull @NotNull View itemView) {
-            super(itemView);
+        public ComponentMenuHomeBinding binding;
+        public viewHolder(@NonNull @NotNull ComponentMenuHomeBinding itemView) {
+            super(itemView.getRoot());
+            binding = itemView;
+        }
+
+        public void bind(Context context, MenuItem menuItem, MenuItemClickListener listener) {
+            binding.title.setText(menuItem.getTitle());
+            binding.subtitle.setText(menuItem.getSubtitle());
+            if(menuItem.getDrawable_image() != null)
+                binding.image.setImageResource(menuItem.getDrawable_image());
+            if(menuItem instanceof MenuItemLink)
+                binding.openLink.setVisibility(View.VISIBLE);
+            binding.container.setOnClickListener(v -> {
+                listener.onClick(v, menuItem);
+            });
         }
     }
 

@@ -1,11 +1,13 @@
 package com.c3pemulihankupang.c3pemulihankupang.models;
 
-public class MenuItem {
-    private int id;
+import android.content.Intent;
+
+public abstract class MenuItem {
+    private Integer id;
     private String title ;
     private String subtitle;
     private String image_url;
-    private int drawable_image;
+    private Integer drawable_image;
 
     public MenuItem(int id, String title, String subtitle, String image_url) {
         this.id = id;
@@ -53,11 +55,11 @@ public class MenuItem {
         this.image_url = image_url;
     }
 
-    public int getDrawable_image() {
+    public Integer getDrawable_image() {
         return drawable_image;
     }
 
-    public void setDrawable_image(int drawable_image) {
+    public void setDrawable_image(Integer drawable_image) {
         this.drawable_image = drawable_image;
     }
 }
