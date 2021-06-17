@@ -50,11 +50,17 @@ public class MenuNewFragment extends Fragment {
     }
 
     private void initMenu() {
-        MenuItem menu_doa = new MenuItemIntent(1, "Butuh Doa?","Tim kami akan senang mendoakan Anda dan mendukung Anda dengan segala permintaan doa yang Anda miliki. Selain itu, kami ingin merayakan bersama Anda & bersyukur kepada Tuhan atas jawaban doa yang Anda miliki!", R.drawable.team, new Intent(requireActivity(), MainActivity.class)).setColor(R.color.light_blue_A400);
+        MenuItem menu_doa = new MenuItemIntent(1, "Butuh Doa?","Tim kami akan senang mendoakan Anda dan mendukung Anda dengan segala permintaan doa yang Anda miliki. Selain itu, kami ingin merayakan bersama Anda & bersyukur kepada Tuhan atas jawaban doa yang Anda miliki!", R.drawable.team, new Intent(requireActivity(), MainActivity.class))
+                .setColor(R.color.light_blue_A400)
+                .setStyle(R.style.Theme_C3PemulihanKupang_CardAmber);
         menuItemList.add(menu_doa);
-        MenuItem menu_vip_card = new MenuItemIntent(2, "New / VIP Card?", "VIP Card", R.drawable.team, new Intent(requireActivity(), MainActivity.class)).setColor(R.color.pink_500);
+        MenuItem menu_vip_card = new MenuItemIntent(2, "New / VIP Card?", "VIP Card", R.drawable.team, new Intent(requireActivity(), MainActivity.class))
+                .setColor(R.color.pink_500)
+                .setStyle(R.style.Theme_C3PemulihanKupang_CardAmber);
         menuItemList.add(menu_vip_card);
-        MenuItem menu_komitmen = new MenuItemIntent(3, "Komitmen", "Komitmen", R.drawable.team, new Intent(requireActivity(), MainActivity.class)).setColor(R.color.amber_700);
+        MenuItem menu_komitmen = new MenuItemIntent(3, "Komitmen", "Komitmen", R.drawable.team, new Intent(requireActivity(), MainActivity.class))
+                .setColor(R.color.amber_700)
+                .setStyle(R.style.Theme_C3PemulihanKupang_CardAmber);
         menuItemList.add(menu_komitmen);
 
         adapter = new MenuNewAdapter(requireContext(), menuItemList, new MenuNewAdapter.MenuItemClickListener() {

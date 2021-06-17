@@ -66,10 +66,13 @@ public class MenuNewAdapter extends RecyclerView.Adapter<MenuNewAdapter.viewHold
 
         public void bind(Context context, MenuItem menuItem, MenuItemClickListener listener) {
             binding.title.setText(menuItem.getTitle());
-            if(menuItem.getColor() != null){
-                binding.floatingActionButton.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, menuItem.getColor())));
-                binding.container.setCardBackgroundColor(ContextCompat.getColor(context, menuItem.getColor()));
-            }
+//            if(menuItem.getColor() != null){
+//                binding.floatingActionButton.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, menuItem.getColor())));
+//                binding.container.setCardBackgroundColor(ContextCompat.getColor(context, menuItem.getColor()));
+//            }
+//            if(menuItem.getStyle() != null){
+//                binding.container.set;
+//            }
             if(menuItem instanceof MenuItemLink)
                 binding.openLink.setVisibility(View.VISIBLE);
             binding.container.setOnClickListener(v -> {

@@ -23,4 +23,9 @@
     <style name="Theme.C3PemulihanKupang.Heading.Subtitle" parent="@style/TextAppearance.AppCompat.Subhead">
         <item name="android:textColor">@color/blue_gray_200</item>
     </style>
+    <style name="Theme.C3PemulihanKupang.CardAmber">
+        <item name="android:textColor">@color/white</item>
+        <item name="cardBackgroundColor">@color/amber_900</item>
+        <item name="tint">@color/amber_900</item>
+    </style>
 </resources>

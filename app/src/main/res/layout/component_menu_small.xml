@@ -13,6 +13,7 @@
         app:cardUseCompatPadding="true"
         app:cardBackgroundColor="@color/black_900"
         android:foreground="?android:attr/selectableItemBackground"
+        android:theme="@style/Theme.C3PemulihanKupang.CardAmber"
         android:clickable="true"
         android:focusable="true"
         android:id="@+id/container">

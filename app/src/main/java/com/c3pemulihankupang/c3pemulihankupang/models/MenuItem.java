@@ -9,6 +9,7 @@ public abstract class MenuItem {
     private String image_url;
     private Integer drawable_image;
     private Integer color;
+    private Integer style;
 
     public MenuItem(int id, String title, String subtitle, String image_url) {
         this.id = id;
@@ -74,6 +75,15 @@ public abstract class MenuItem {
 
     public MenuItem setColor(Integer color) {
         this.color = color;
+        return this;
+    }
+
+    public Integer getStyle() {
+        return style;
+    }
+
+    public MenuItem setStyle(Integer style) {
+        this.style = style;
         return this;
     }
 }
