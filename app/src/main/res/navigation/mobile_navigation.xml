@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.c3pemulihankupang.c3pemulihankupang.ui.slideshow.SlideshowFragment"
+        android:name="com.c3pemulihankupang.c3pemulihankupang.ui.podcast.PodcastFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/podcast_fragment" />
 </navigation>

@@ -28,4 +28,8 @@
         <item name="cardBackgroundColor">@color/amber_900</item>
         <item name="tint">@color/amber_900</item>
     </style>
+    <style name="Theme.C3PemulihanKupang.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconTint">@color/material_bottom_nav_item_tint</item>
+        <item name="itemTextColor">@color/material_bottom_nav_item_tint</item>
+    </style>
 </resources>

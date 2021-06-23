@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.C3PemulihanKupang" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/light_blue_600</item>
-        <item name="colorPrimaryVariant">@color/light_blue_600</item>
+        <item name="colorPrimary">@color/black_900</item>
+        <item name="colorPrimaryVariant">@color/black_900</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/light_blue_600</item>
@@ -36,5 +36,10 @@
         <item name="android:textColor">@color/white</item>
         <item name="cardBackgroundColor">@color/amber_500</item>
         <item name="tint">@color/amber_500</item>
+    </style>
+    
+    <style name="Theme.C3PemulihanKupang.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconTint">@color/material_bottom_nav_item_tint</item>
+        <item name="itemTextColor">@color/material_bottom_nav_item_tint</item>
     </style>
 </resources>
