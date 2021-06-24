@@ -6,12 +6,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo_android"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.C3PemulihanKupang">
-        <activity android:name=".MenuNewView"></activity>
+        <activity android:name=".LivestreamActivity"></activity>
+        <activity android:name=".MenuNewView" />
         <activity android:name=".TimKamiActivity" />
         <activity
             android:name=".MainActivity"

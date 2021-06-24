@@ -1,5 +1,7 @@
 package com.c3pemulihankupang.c3pemulihankupang;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -93,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
                     .setRedirectUri(REDIRECT_URI)
                     .showAuthView(true)
                     .build();
+
+        binding.navView.setItemIconTintList(null);
+        binding.lokasi.setOnClickListener(v -> {
+            Uri gmmIntentUri = Uri.parse("google.streetview:cbll=-10.158381594322405,123.61240518650916");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        });
 
 //        SpotifyAppRemote.connect(this, connectionParams,
 //                new Connector.ConnectionListener() {

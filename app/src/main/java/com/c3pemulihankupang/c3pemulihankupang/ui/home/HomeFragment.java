@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.c3pemulihankupang.c3pemulihankupang.LivestreamActivity;
 import com.c3pemulihankupang.c3pemulihankupang.MainActivity;
 import com.c3pemulihankupang.c3pemulihankupang.R;
 import com.c3pemulihankupang.c3pemulihankupang.TimKamiActivity;
@@ -48,7 +49,7 @@ public class HomeFragment extends Fragment {
 
         menuItemList.add(new MenuItemLink( 1, "Banner", "Informasi", R.drawable.banner , "http://c3pemulihankupang.com"));
         menuItemList.add(new MenuItemIntent( 2, "Tim Kami", "Informasi Tim Kami", R.drawable.team, new Intent(requireContext(), TimKamiActivity.class)));
-        menuItemList.add(new MenuItemIntent( 3, "Live Streaming", "Informasi Live Streaming", R.drawable.livestreaming, null ));
+        menuItemList.add(new MenuItemIntent( 3, "Live Streaming", "Informasi Live Streaming", R.drawable.livestreaming, new Intent(requireContext(), LivestreamActivity.class) ));
         menuItemList.add(new MenuItemIntent( 4, "Mengenai Kami", "Siapa Kami & Apa Yang Kami Lakukan", R.drawable.siapa_kami, null));
 
         binding.menuView.setLayoutManager(
@@ -70,7 +71,8 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         } else if(menuItem instanceof MenuItemIntent){
             MenuItemIntent menuItemIntent = (MenuItemIntent) menuItem;
-            startActivity(menuItemIntent.getIntent());
+            if(menuItemIntent.getIntent() != null)
+                startActivity(menuItemIntent.getIntent());
         }
     }
 

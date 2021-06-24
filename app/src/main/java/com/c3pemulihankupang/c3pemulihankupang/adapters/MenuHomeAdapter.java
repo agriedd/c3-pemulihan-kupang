@@ -14,6 +14,7 @@ import com.c3pemulihankupang.c3pemulihankupang.R;
 import com.c3pemulihankupang.c3pemulihankupang.databinding.ComponentMenuHomeBinding;
 import com.c3pemulihankupang.c3pemulihankupang.models.MenuItem;
 import com.c3pemulihankupang.c3pemulihankupang.models.MenuItemLink;
+import com.c3pemulihankupang.c3pemulihankupang.models.MenuItemLinkIcon;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -65,6 +66,12 @@ public class MenuHomeAdapter extends RecyclerView.Adapter<MenuHomeAdapter.viewHo
             binding.subtitle.setText(menuItem.getSubtitle());
             if(menuItem.getDrawable_image() != null)
                 binding.image.setImageResource(menuItem.getDrawable_image());
+            if(menuItem instanceof MenuItemLinkIcon){
+                if(((MenuItemLinkIcon) menuItem).getIcon() != null){
+                    binding.icon.setImageResource(((MenuItemLinkIcon) menuItem).getIcon());
+                    binding.icon.setVisibility(View.VISIBLE);
+                }
+            }
             if(menuItem instanceof MenuItemLink)
                 binding.openLink.setVisibility(View.VISIBLE);
             binding.container.setOnClickListener(v -> {
