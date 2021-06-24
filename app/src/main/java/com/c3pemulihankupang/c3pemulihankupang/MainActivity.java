@@ -104,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(mapIntent);
         });
 
+        binding.appBarMain.titlePodcast.setSelected(true);
+
 //        SpotifyAppRemote.connect(this, connectionParams,
 //                new Connector.ConnectionListener() {
 //

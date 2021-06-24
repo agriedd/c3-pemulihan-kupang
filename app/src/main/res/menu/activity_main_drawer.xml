@@ -4,6 +4,13 @@
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_website"
+            android:icon="@drawable/ic_baseline_public_24"
+            android:title="Website"
+            android:enabled="true"/>
+    </group>
+    <group android:checkableBehavior="single">
+        <item
             android:id="@+id/nav_facebook"
             android:icon="@drawable/f_logo_rgb_black_100"
             android:title="Facebook" />
