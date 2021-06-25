@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -19,6 +21,7 @@ import com.c3pemulihankupang.c3pemulihankupang.databinding.ActivityMainBinding;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.spotify.android.appremote.api.ConnectionParams;
@@ -32,6 +35,8 @@ import com.spotify.protocol.types.ListItems;
 import com.spotify.protocol.types.PlayerState;
 import com.spotify.protocol.types.Track;
 
+import org.jetbrains.annotations.NotNull;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,12 +44,15 @@ public class MainActivity extends AppCompatActivity {
     private static final String CLIENT_ID = "2282371be3854961b2515eea4d038584";
     private static final String REDIRECT_URI = "https://c3pemulihankupang.com/callback.php";
     private SpotifyAppRemote mSpotifyAppRemote;
+    private ActivityMainBinding binding;
+    private ConnectionParams connectionParams;
+    private String spotifyPlayId = "spotify:episode:18GIkT8m0HaOqgYLxECydb";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        com.c3pemulihankupang.c3pemulihankupang.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         MaterialToolbar toolbar = binding.appBarMain.toolbar;
@@ -79,22 +87,31 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
         BottomNavigationView navigationView = binding.appBarMain.bottomNavigationView;
+
 //        NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_new, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_new, R.id.nav_podcast)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        ConnectionParams connectionParams =
+
+        connectionParams =
             new ConnectionParams.Builder(CLIENT_ID)
                     .setRedirectUri(REDIRECT_URI)
                     .showAuthView(true)
                     .build();
+
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if(destination.getLabel().toString().equalsIgnoreCase("Podcast")){
+                if(!mSpotifyAppRemote.isConnected())
+                    connectSpotify();
+            }
+        });
 
         binding.navView.setItemIconTintList(null);
         binding.lokasi.setOnClickListener(v -> {
@@ -105,33 +122,49 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.appBarMain.titlePodcast.setSelected(true);
+        binding.appBarMain.togglepodcast.setOnClickListener(v -> {
 
-//        SpotifyAppRemote.connect(this, connectionParams,
-//                new Connector.ConnectionListener() {
-//
-//                    @Override
-//                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-//                        mSpotifyAppRemote = spotifyAppRemote;
-//                        Log.d("MainActivity", "Connected! Yay!");
-//
-//                        spotifyAppRemote.getContentApi().getRecommendedContentItems(ContentApi.ContentType.SLEEP).setResultCallback(new CallResult.ResultCallback<ListItems>() {
-//                            @Override
-//                            public void onResult(ListItems data) {
-//                                Gson gson = new Gson();
-//                                Log.d("wtf", "onResult: "+ gson.toJson(data).toString());
-//                            }
-//                        });
-//                        // Now you can start interacting with App Remote
-//                        connected();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Throwable throwable) {
-//                        Log.e("MainActivity", throwable.getMessage(), throwable);
-//
-//                        // Something went wrong when attempting to connect! Handle errors here
-//                    }
-//                });
+        });
+
+        if(SpotifyAppRemote.isSpotifyInstalled(this)){
+            if(spotifyPlayId != null){
+                connectSpotify();
+            }
+        } else {
+            Snackbar snackbar = Snackbar.make((View) binding.appBarMain.container, "Silahkan install Spotify agar aplikasi dapat berjalan dengan semestinya", Snackbar.LENGTH_INDEFINITE);
+            snackbar.setAction("mengerti", v -> {
+                snackbar.dismiss();
+            }).show();
+        }
+
+
+        binding.appBarMain.closeMiniplayer.setOnClickListener(v -> {
+            mSpotifyAppRemote.getPlayerApi().pause().setResultCallback(data -> {
+                SpotifyAppRemote.disconnect(mSpotifyAppRemote);
+                binding.appBarMain.miniPlayerPodcast.setVisibility(View.GONE);
+            });
+        });
+    }
+
+    private void connectSpotify() {
+        SpotifyAppRemote.connect(this, connectionParams,
+                new Connector.ConnectionListener() {
+
+                    @Override
+                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
+                        mSpotifyAppRemote = spotifyAppRemote;
+                        Log.d("MainActivity", "Connected! Yay!");
+                        // Now you can start interacting with App Remote
+                        connected();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        //                        Log.e("MainActivity", throwable.getMessage(), throwable);
+
+                        // Something went wrong when attempting to connect! Handle errors here
+                    }
+                });
     }
 
     @Override
@@ -154,9 +187,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void connected() {
-        // Then we will write some more code here.
+
+        binding.appBarMain.miniPlayerPodcast.setVisibility(View.VISIBLE);
+        binding.appBarMain.togglepodcast.setImageResource(R.drawable.ic_round_play_arrow_24);
+
+        mSpotifyAppRemote.getPlayerApi().getPlayerState().setResultCallback(data -> {
+            if(data != null)
+                binding.appBarMain.titlePodcast.setText(data.track.name);
+            if(!data.isPaused)
+                binding.appBarMain.togglepodcast.setImageResource(R.drawable.ic_baseline_pause_24);
+        });
+
+        binding.appBarMain.togglepodcast.setOnClickListener(v -> {
+            mSpotifyAppRemote.getPlayerApi().getPlayerState().setResultCallback(data -> {
+//                    Gson gson = new Gson();
+//                    Log.d("wtf", "onResult: "+ gson.toJson(data).toString());
+                if(!data.isPaused){
+                    mSpotifyAppRemote.getPlayerApi().pause();
+                    binding.appBarMain.togglepodcast.setImageResource(R.drawable.ic_round_play_arrow_24);
+                    mSpotifyAppRemote.getPlayerApi().getPlayerState().setResultCallback(dataPlayerState -> {
+                        if(dataPlayerState != null)
+                            binding.appBarMain.titlePodcast.setText(dataPlayerState.track.name);
+                    });
+                } else {
+                    binding.appBarMain.togglepodcast.setEnabled(false);
+                    mSpotifyAppRemote.getPlayerApi().play(spotifyPlayId).setResultCallback(dataEmpty -> {
+                        binding.appBarMain.togglepodcast.setEnabled(true);
+                        binding.appBarMain.togglepodcast.setImageResource(R.drawable.ic_baseline_pause_24);
+                        mSpotifyAppRemote.getPlayerApi().getPlayerState().setResultCallback(dataPlayerState -> {
+                            if(dataPlayerState != null)
+                                binding.appBarMain.titlePodcast.setText(dataPlayerState.track.name);
+                        });
+                    });
+                }
+            });
+        });
+//
+//        spotifyAppRemote.getContentApi().getRecommendedContentItems(ContentApi.ContentType.SLEEP).setResultCallback(new CallResult.ResultCallback<ListItems>() {
+//            @Override
+//            public void onResult(ListItems data) {
+//                Gson gson = new Gson();
+//                Log.d("wtf", "onResult: "+ gson.toJson(data).toString());
+//            }
+//        });
 //        mSpotifyAppRemote.getPlayerApi().play("spotify:show:2MY2D5GeF37S2xSIuFLUZS");
-//        mSpotifyAppRemote.getPlayerApi().play("spotify:episode:18GIkT8m0HaOqgYLxECydb");
     }
 
     @Override

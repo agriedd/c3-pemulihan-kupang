@@ -10,7 +10,7 @@
         android:icon="@drawable/ic_new_selector"
         android:title="@string/menu_new" />
     <item
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_podcast"
         android:icon="@drawable/ic_podcast_selector"
         android:title="@string/menu_podcast"/>
     <item
