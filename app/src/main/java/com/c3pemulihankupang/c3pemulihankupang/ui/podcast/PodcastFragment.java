@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.c3pemulihankupang.c3pemulihankupang.R;
 import com.c3pemulihankupang.c3pemulihankupang.databinding.PodcastFragmentBinding;
 import com.c3pemulihankupang.c3pemulihankupang.ui.timkami.TimKamiFragment;
+import com.c3pemulihankupang.c3pemulihankupang.webview.JavascriptInterface;
 import com.c3pemulihankupang.c3pemulihankupang.webview.WebviewC3;
 
 public class PodcastFragment extends Fragment {
@@ -50,6 +51,7 @@ public class PodcastFragment extends Fragment {
         binding.webview.getSettings().setDomStorageEnabled(true);
         binding.webview.getSettings().setJavaScriptEnabled(true);
         binding.webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        binding.webview.addJavascriptInterface(new JavascriptInterface(requireContext()), "Android");
         binding.webview.loadUrl("https://c3pemulihankupang.com/podcast.php");
     }
 
