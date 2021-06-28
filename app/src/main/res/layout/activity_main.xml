@@ -65,7 +65,7 @@
                         android:id="@+id/map"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="C3 Pemulihan Kupang, Klp. Lima, Kota Kupang, Nusa Tenggara Tim."
+                        android:text="Jl. Veteran, Depan Lippo Plaza, Kelapa Lima, Kota Kupang - NTT Indonesia 85228"
                         android:textStyle="bold"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
                 <androidx.appcompat.widget.AppCompatImageView

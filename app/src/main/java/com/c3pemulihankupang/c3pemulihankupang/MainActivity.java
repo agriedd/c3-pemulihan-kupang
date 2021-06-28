@@ -3,6 +3,7 @@ package com.c3pemulihankupang.c3pemulihankupang;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.c3pemulihankupang.c3pemulihankupang.databinding.ActivityMainBinding;
+import com.c3pemulihankupang.c3pemulihankupang.models.MenuItemLink;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private SpotifyAppRemote mSpotifyAppRemote;
     private ActivityMainBinding binding;
     private ConnectionParams connectionParams;
-    private String spotifyPlayId = "spotify:episode:18GIkT8m0HaOqgYLxECydb";
+    private String spotifyPlayId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,23 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        binding.navView.setNavigationItemSelectedListener(item -> {
+            if(item.getTitle().toString().equalsIgnoreCase("website")){
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://c3pemulihankupang.com/"));
+                startActivity(intent);
+            } else if(item.getTitle().toString().equalsIgnoreCase("facebook")) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://facebook.com/C3RestorationKupang"));
+                startActivity(intent);
+            } else if(item.getTitle().toString().equalsIgnoreCase("instagram")) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/c3reachrestorationkupang/?igshid=82egtq6qbyhq"));
+                startActivity(intent);
+            } else if(item.getTitle().toString().equalsIgnoreCase("youtube")) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/c/C3ReachPemulihanKupang/videos"));
+                startActivity(intent);
+            }
+            return true;
+        });
+
 
         connectionParams =
             new ConnectionParams.Builder(CLIENT_ID)
@@ -108,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if(destination.getLabel().toString().equalsIgnoreCase("Podcast")){
-                if(!mSpotifyAppRemote.isConnected())
+                if(mSpotifyAppRemote == null || !mSpotifyAppRemote.isConnected())
                     connectSpotify();
             }
         });
@@ -183,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // We will start writing our code here.
     }
 
     private void connected() {
@@ -200,8 +218,6 @@ public class MainActivity extends AppCompatActivity {
 
         binding.appBarMain.togglepodcast.setOnClickListener(v -> {
             mSpotifyAppRemote.getPlayerApi().getPlayerState().setResultCallback(data -> {
-//                    Gson gson = new Gson();
-//                    Log.d("wtf", "onResult: "+ gson.toJson(data).toString());
                 if(!data.isPaused){
                     mSpotifyAppRemote.getPlayerApi().pause();
                     binding.appBarMain.togglepodcast.setImageResource(R.drawable.ic_round_play_arrow_24);
@@ -210,15 +226,7 @@ public class MainActivity extends AppCompatActivity {
                             binding.appBarMain.titlePodcast.setText(dataPlayerState.track.name);
                     });
                 } else {
-                    binding.appBarMain.togglepodcast.setEnabled(false);
-                    mSpotifyAppRemote.getPlayerApi().play(spotifyPlayId).setResultCallback(dataEmpty -> {
-                        binding.appBarMain.togglepodcast.setEnabled(true);
-                        binding.appBarMain.togglepodcast.setImageResource(R.drawable.ic_baseline_pause_24);
-                        mSpotifyAppRemote.getPlayerApi().getPlayerState().setResultCallback(dataPlayerState -> {
-                            if(dataPlayerState != null)
-                                binding.appBarMain.titlePodcast.setText(dataPlayerState.track.name);
-                        });
-                    });
+                    playSpotifySong();
                 }
             });
         });
@@ -233,9 +241,46 @@ public class MainActivity extends AppCompatActivity {
 //        mSpotifyAppRemote.getPlayerApi().play("spotify:show:2MY2D5GeF37S2xSIuFLUZS");
     }
 
+    private void playSpotifySong() {
+        binding.appBarMain.togglepodcast.setEnabled(false);
+        mSpotifyAppRemote.getPlayerApi().play(spotifyPlayId).setResultCallback(dataEmpty -> {
+            binding.appBarMain.togglepodcast.setEnabled(true);
+            binding.appBarMain.miniPlayerPodcast.setVisibility(View.VISIBLE);
+            binding.appBarMain.togglepodcast.setImageResource(R.drawable.ic_baseline_pause_24);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mSpotifyAppRemote.getPlayerApi().getPlayerState().setResultCallback(dataPlayerState -> {
+                        binding.appBarMain.titlePodcast.setText(dataPlayerState.track.name);
+                    });
+                }
+            }, 500);
+        });
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
-        // Aaand we will finish off here.
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SpotifyAppRemote.disconnect(mSpotifyAppRemote);
+    }
+
+    public SpotifyAppRemote getmSpotifyAppRemote() {
+        return mSpotifyAppRemote;
+    }
+
+    public void play(String id) {
+        if(mSpotifyAppRemote.isConnected()){
+            this.spotifyPlayId = id;
+            playSpotifySong();
+        } else {
+            this.connectSpotify();
+        }
     }
 }

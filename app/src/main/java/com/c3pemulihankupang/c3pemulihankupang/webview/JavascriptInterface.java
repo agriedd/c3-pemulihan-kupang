@@ -3,6 +3,8 @@ package com.c3pemulihankupang.c3pemulihankupang.webview;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.c3pemulihankupang.c3pemulihankupang.MainActivity;
+
 public class JavascriptInterface {
     Context mContext;
 
@@ -13,7 +15,10 @@ public class JavascriptInterface {
 
     /** Show a toast from the web page */
     @android.webkit.JavascriptInterface
-    public void showToast(String id) {
-        Toast.makeText(mContext, id, Toast.LENGTH_SHORT).show();
+    public void playSpotify(String id) {
+        MainActivity activity = (MainActivity) mContext;
+        if(activity != null){
+            activity.play(id);
+        }
     }
 }
