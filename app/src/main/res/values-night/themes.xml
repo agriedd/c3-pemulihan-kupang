@@ -13,23 +13,33 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="Theme.C3PemulihanKupang.CardMenuOverlay">
         <item name="android:background">#9148</item>
     </style>
+
     <style name="Theme.C3PemulihanKupang.Heading.Title" parent="@style/TextAppearance.MaterialComponents.Headline4">
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="Theme.C3PemulihanKupang.Heading.Subtitle" parent="@style/TextAppearance.AppCompat.Subhead">
         <item name="android:textColor">@color/blue_gray_200</item>
     </style>
+
     <style name="Theme.C3PemulihanKupang.CardAmber">
         <item name="android:textColor">@color/white</item>
         <item name="cardBackgroundColor">@color/amber_900</item>
         <item name="tint">@color/amber_900</item>
     </style>
+
     <style name="Theme.C3PemulihanKupang.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemIconTint">@color/material_bottom_nav_item_tint</item>
         <item name="itemTextColor">@color/material_bottom_nav_item_tint</item>
+    </style>
+
+    <style name="ThemeOverlay.C3PemulihanKupang.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_900</item>
+        <item name="fullscreenTextColor">@color/light_blue_A400</item>
     </style>
 </resources>
