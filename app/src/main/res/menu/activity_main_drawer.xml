@@ -5,7 +5,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_website"
-            android:icon="@drawable/ic_baseline_public_24"
+            android:icon="@mipmap/ic_launcher_foreground"
             android:title="Website"
             android:enabled="true"/>
     </group>
@@ -16,7 +16,7 @@
             android:title="Facebook" />
         <item
             android:id="@+id/nav_instagram"
-            android:icon="@drawable/f_logo_rgb_black_100"
+            android:icon="@drawable/glyph_logo_may2016"
             android:title="Instagram" />
         <item
             android:id="@+id/nav_youtube"

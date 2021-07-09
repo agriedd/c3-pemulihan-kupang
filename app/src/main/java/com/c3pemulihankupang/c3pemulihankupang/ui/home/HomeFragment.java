@@ -6,18 +6,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.c3pemulihankupang.c3pemulihankupang.LivestreamActivity;
-import com.c3pemulihankupang.c3pemulihankupang.MainActivity;
+import com.c3pemulihankupang.c3pemulihankupang.MengenaiKamiActivity;
 import com.c3pemulihankupang.c3pemulihankupang.R;
 import com.c3pemulihankupang.c3pemulihankupang.TimKamiActivity;
 import com.c3pemulihankupang.c3pemulihankupang.adapters.MenuHomeAdapter;
@@ -50,7 +47,7 @@ public class HomeFragment extends Fragment {
         menuItemList.add(new MenuItemLink( 1, "Banner", "Informasi", R.drawable.banner , "http://c3pemulihankupang.com"));
         menuItemList.add(new MenuItemIntent( 2, "Tim Kami", "Informasi Tim Kami", R.drawable.team, new Intent(requireContext(), TimKamiActivity.class)));
         menuItemList.add(new MenuItemIntent( 3, "Live Streaming", "Informasi Live Streaming", R.drawable.livestreaming, new Intent(requireContext(), LivestreamActivity.class) ));
-        menuItemList.add(new MenuItemIntent( 4, "Mengenai Kami", "Siapa Kami & Apa Yang Kami Lakukan", R.drawable.siapa_kami, null));
+        menuItemList.add(new MenuItemIntent( 4, "Mengenai Kami", "Siapa Kami & Apa Yang Kami Lakukan", R.drawable.siapa_kami, new Intent(requireContext(), MengenaiKamiActivity.class)));
 
         binding.menuView.setLayoutManager(
                 new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)

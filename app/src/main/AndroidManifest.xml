@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.C3PemulihanKupang">
-        <activity android:name=".LivestreamActivity"></activity>
+        <activity android:name=".MengenaiKamiActivity"></activity>
+        <activity android:name=".LivestreamActivity" />
         <activity android:name=".MenuNewView" />
         <activity android:name=".TimKamiActivity" />
         <activity

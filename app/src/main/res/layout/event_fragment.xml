@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.event.EventFragment">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.c3pemulihankupang.c3pemulihankupang.view.WebviewMedia
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/webview"/>
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loading"
+            android:layout_gravity="bottom"
+            android:indeterminate="true"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>
