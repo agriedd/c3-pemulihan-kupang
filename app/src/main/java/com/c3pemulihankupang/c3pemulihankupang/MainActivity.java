@@ -19,6 +19,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.c3pemulihankupang.c3pemulihankupang.databinding.ActivityMainBinding;
+import com.c3pemulihankupang.c3pemulihankupang.databinding.ContentMainBinding;
+import com.c3pemulihankupang.c3pemulihankupang.dialogs.DialogMembutuhkanSpotify;
 import com.c3pemulihankupang.c3pemulihankupang.models.MenuItemLink;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ConnectionParams connectionParams;
     private String spotifyPlayId = null;
+    private DialogMembutuhkanSpotify pemberitahuan_spotify;
+    private String activeTab = "Home";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     .build();
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            activeTab = destination.getLabel().toString();
             if(destination.getLabel().toString().equalsIgnoreCase("Podcast")){
                 if(mSpotifyAppRemote == null || !mSpotifyAppRemote.isConnected())
                     connectSpotify();
@@ -145,17 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        if(SpotifyAppRemote.isSpotifyInstalled(this)){
-            if(spotifyPlayId != null){
-                connectSpotify();
-            }
-        } else {
-            Snackbar snackbar = Snackbar.make((View) binding.appBarMain.container, "Silahkan install Spotify agar aplikasi dapat berjalan dengan semestinya", Snackbar.LENGTH_INDEFINITE);
-            snackbar.setAction("mengerti", v -> {
-                snackbar.dismiss();
-            }).show();
-        }
-
+        connectSpotify();
 
         binding.appBarMain.closeMiniplayer.setOnClickListener(v -> {
             mSpotifyAppRemote.getPlayerApi().pause().setResultCallback(data -> {
@@ -166,24 +161,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void connectSpotify() {
-        SpotifyAppRemote.connect(this, connectionParams,
-                new Connector.ConnectionListener() {
 
-                    @Override
-                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                        mSpotifyAppRemote = spotifyAppRemote;
-                        Log.d("MainActivity", "Connected! Yay!");
-                        // Now you can start interacting with App Remote
-                        connected();
-                    }
+        if(SpotifyAppRemote.isSpotifyInstalled(this)){
+            if(spotifyPlayId != null) {
+                SpotifyAppRemote.connect(this, connectionParams,
+                        new Connector.ConnectionListener() {
 
-                    @Override
-                    public void onFailure(Throwable throwable) {
-                        //                        Log.e("MainActivity", throwable.getMessage(), throwable);
+                            @Override
+                            public void onConnected(SpotifyAppRemote spotifyAppRemote) {
+                                mSpotifyAppRemote = spotifyAppRemote;
+                                Log.d("MainActivity", "Connected! Yay!");
+                                // Now you can start interacting with App Remote
+                                connected();
+                            }
 
-                        // Something went wrong when attempting to connect! Handle errors here
-                    }
-                });
+                            @Override
+                            public void onFailure(Throwable throwable) {
+                                //                        Log.e("MainActivity", throwable.getMessage(), throwable);
+
+                                // Something went wrong when attempting to connect! Handle errors here
+                            }
+                        });
+            }
+        } else {
+            if(pemberitahuan_spotify == null){
+                ContentMainBinding contentMainBinding = binding.appBarMain.include;
+                pemberitahuan_spotify = new DialogMembutuhkanSpotify();
+            }
+            if(this.activeTab.equalsIgnoreCase("Podcast"))
+                pemberitahuan_spotify.show(getSupportFragmentManager(), "PemberitahuanSpotify");
+        }
     }
 
     @Override
